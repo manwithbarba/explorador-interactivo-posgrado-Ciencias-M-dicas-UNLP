@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta
+      name="description"
+      content="Explorador interactivo de titulaciones de posgrado de la Facultad de Ciencias Médicas de la Universidad Nacional de La Plata."
+    />
+    <title>
+      Explorador interactivo de titulaciones de posgrado · Facultad de Ciencias
+      Médicas de la UNLP
+    </title>
+    <link rel="stylesheet" href="./assets/styles.css" />
+    <link rel="stylesheet" href="./assets/visualizations.css" />
+    <script type="module" src="./assets/app.js"></script>
+  </head>
+  <body>
+    <a class="skip" href="#results">Ir a resultados</a>
+    <header>
+      <a class="brand" href="#">Titulaciones de posgrado</a>
+      <nav aria-label="Información">
+        <button id="saved">Guardadas <span id="saved-count">0</span></button
+        ><button id="method">Metodología ↗</button>
+      </nav>
+    </header>
+    <main>
+      <section class="hero">
+        <div>
+          <p class="eyebrow">EXPLORADOR INTERACTIVO</p>
+          <h1>Titulaciones de posgrado</h1>
+          <p class="institution">Facultad de Ciencias Médicas de la UNLP</p>
+          <p class="intro">
+            Explorá las tesis, recorré sus temas y descubrí sobre qué se ha
+            investigado en los grados académicos de la Facultad.
+          </p>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <span></span><span></span><span></span><span></span><span></span>
+        </div>
+      </section>
+      <form id="search-form" class="search">
+        <label for="query">¿Qué estás buscando?</label>
+        <div>
+          <input
+            type="search"
+            id="query"
+            placeholder="Tema, título, autor o palabra clave…"
+            autocomplete="off"
+          /><button type="submit">
+            Buscar <span aria-hidden="true">↗</span>
+          </button>
+        </div>
+        <p>
+          Buscá con o sin tildes. Combiná términos y refiná por área, nivel y
+          año.
+        </p>
+      </form>
+      <section class="workspace">
+        <button
+          id="filter-toggle"
+          class="filter-toggle"
+          aria-expanded="false"
+          aria-controls="filters"
+        >
+          Refinar búsqueda y filtros ＋
+        </button>
+        <aside id="filters" class="filters-collapsed" aria-label="Filtros">
+          <div class="filter-title">
+            <h2>Refinar búsqueda</h2>
+            <button id="clear" type="button">Limpiar</button>
+          </div>
+          <label for="area">Área de conocimiento</label
+          ><select id="area">
+            <option value="">Todas las áreas</option>
+          </select>
+          <p class="hint">Incluye áreas principales y secundarias.</p>
+          <label for="level">Nivel académico</label
+          ><select id="level">
+            <option value="">Todos los niveles</option>
+          </select>
+          <fieldset>
+            <legend>Año de defensa</legend>
+            <div class="years">
+              <label
+                >Desde<input
+                  id="from"
+                  type="number"
+                  inputmode="numeric"
+                  placeholder="Sin límite" /></label
+              ><label
+                >Hasta<input
+                  id="to"
+                  type="number"
+                  inputmode="numeric"
+                  placeholder="Sin límite"
+              /></label>
+            </div>
+          </fieldset>
+          <label class="check"
+            ><input type="checkbox" id="abstract" /> Con resumen</label
+          ><label class="check"
+            ><input type="checkbox" id="pdf" /> Con enlace a texto
+            completo</label
+          >
+          <div class="aside-note">
+            <span aria-hidden="true">◈</span>
+            <p>
+              Los filtros incluyen las áreas principales y secundarias
+              registradas para cada trabajo.
+            </p>
+
+          </div>
+        </aside>
+        <div class="results-area">
+          <div class="result-toolbar">
+            <div>
+              <p class="eyebrow">EXPLORAR LA COLECCIÓN</p>
+              <h2 id="count" aria-live="polite">Cargando colección…</h2>
+            </div>
+            <label class="sort"
+              >Ordenar<select id="sort">
+                <option value="recent">Más recientes</option>
+                <option value="old">Más antiguos</option>
+                <option value="title">Título A–Z</option>
+              </select></label
+            >
+          </div>
+          <div class="viewbar">
+            <div role="group" aria-label="Vista">
+              <button data-view="catalog" aria-pressed="true">▤ Catálogo</button
+              ><button data-view="map" aria-pressed="false">
+                ◉ Mapa temático</button
+              ><button data-view="network" aria-pressed="false">
+                ⌘ Conexiones
+              </button>
+            </div>
+            <button id="export">Exportar resultados ↓</button>
+          </div>
+          <p id="active" class="active"></p>
+          <div id="visual" hidden></div>
+          <p id="visual-note" class="hint" hidden></p>
+          <div id="results" tabindex="-1" aria-busy="true"></div>
+          <button id="more" class="more" hidden>Mostrar más tesis</button>
+        </div>
+      </section>
+    </main>
+    <div id="comparebar" class="comparebar" hidden>
+      <span id="comparecount"></span
+      ><button id="compare">Comparar selección</button
+      ><button id="clearcompare" aria-label="Vaciar comparación">×</button>
+    </div>
+    <footer>
+      <div>
+        <strong>Titulaciones de posgrado</strong>
+        <p>Facultad de Ciencias Médicas · Universidad Nacional de La Plata</p>
+      </div>
+      <p>
+        <button id="method-footer">
+          Metodología y límites de la colección
+        </button>
+      </p>
+    </footer>
+    <dialog id="dialog" aria-labelledby="dialog-title">
+      <button id="close-dialog" class="close" aria-label="Cerrar ventana">
+        ×
+      </button>
+      <div id="dialog-content"></div>
+    </dialog>
+    <div id="toast" role="status" class="toast" hidden></div>
+    <noscript
+      ><p>
+        Activá JavaScript para buscar y explorar esta colección. Los datos
+        descargables se encuentran en la carpeta data.
+      </p></noscript
+    >
+  </body>
+</html>

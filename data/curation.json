@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-09",
+  "authority": "Decisiones explícitas del usuario, revisión de colección FCM",
+  "facultyCorrections": ["10915/162323", "10915/179144", "10915/179147"],
+  "facultyCanonical": "Facultad de Ciencias Médicas",
+  "facultyAliases": ["Facultad de Medicina"],
+  "areas": {"10915/154073": "Infectología"},
+  "aliases": {"10915/149987": "10915/162845", "10915/185202": "10915/184314"},
+  "distinctTitleGroups": ["tuberculosis renal", "meningitis agudas purulentas en el niño", "persistencia del conducto arteriovenoso"],
+  "duplicatePolicy": "Trabajos homónimos confirmados se conservan separados; Albuminurias y Leucemia se publican una sola vez con ambos registros fuente preservados."
+}

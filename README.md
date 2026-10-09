@@ -1,50 +1,21 @@
-# Explorador de tesis · FCM UNLP
+# Explorador interactivo de titulaciones de posgrado · Ciencias Médicas UNLP
 
-Consulta interactiva estática de tesis, preparada para GitHub Pages. Búsqueda, filtros, fichas, mapa y relaciones funcionan en el navegador; los registros completos y descargas se cargan cuando se solicitan. No requiere base de datos, credenciales ni un servidor de aplicación.
+Consulta de 723 trabajos de posgrado de la Facultad de Ciencias Médicas de la Universidad Nacional de La Plata, mediante búsqueda, filtros, fichas, mapas y relaciones documentales.
 
-El corte curado publica 723 trabajos a partir de 725 registros fuente. Las dos fusiones conservan todos los originales y los enlaces antiguos redirigen al trabajo canónico. La curación aprobada corrige tres facultades y clasifica Linfogranulomatosis abdominal en Infectología. Las decisiones y su hash se publican con los datos; títulos, años de defensa y metadatos originales permanecen auditables en cada ficha.
+## Procedencia y elaboración
 
-## Ejecutar y verificar
+Los metadatos se obtuvieron de [SEDICI](https://sedici.unlp.edu.ar/), Servicio de Difusión de la Creación Intelectual de la UNLP, mediante OAI-PMH y se completaron con las páginas públicas de cada registro. La captura de origen corresponde al 8 de octubre de 2026. Se seleccionaron trabajos de posgrado y se incorporó la clasificación temática editorial de origen.
 
-Python 3.10+, sin dependencias de construcción:
+La normalización corrigió caracteres Unicode, entidades HTML y espacios, separó títulos y subtítulos y ordenó fechas, priorizando el año de defensa. La revisión documentó correcciones institucionales y temáticas y dos unificaciones de registros. Se conservan los 725 registros fuente y sus variantes en las fichas de 723 trabajos. Los títulos coincidentes no implican que se trate del mismo trabajo. Las decisiones de curación y manifiestos de trazabilidad están en `data/`.
 
-```text
-python tools/build.py --source sources/Tesis_FCM_UNLP_revision_auditable.zip
-python tools/validate.py
-python tools/package.py --stage _site
-python -m http.server 8080 --directory _site
-```
+## Mapas y relaciones
 
-Abrir `http://localhost:8080`. Para reproducir el corte se necesita la fuente auditada indicada en `sources/`; también se admite `--source RUTA_A_DIRECTORIO`. La ruta predeterminada usa el ZIP incluido y, si no está disponible, busca la copia del entorno de auditoría original. La construcción verifica hashes de todos los archivos fuente antes de publicar. Las salidas ya generadas pueden validarse sin la fuente.
+La comparación de contenido textual utiliza TF-IDF y similitud del coseno sobre títulos, resúmenes y términos de los metadatos. El cálculo original corresponde a 725 registros; las unificaciones remapean relaciones, eliminan autorreferencias y conservan el máximo puntaje, sin recalcular el modelo. La proyección bidimensional es exploratoria y puede distorsionar distancias. No constituye una clasificación científica validada.
 
-## Publicación
+El mapa permite agrupamientos descriptivos por año de defensa, área temática y tipo de trabajo: doctorado, maestría y especialización. Los colores identifican áreas temáticas. Los nombres de personas no están desambiguados y la disponibilidad remota de los PDF no fue verificada nuevamente.
 
-Publicar únicamente el contenido empaquetado de `_site/`: `index.html`, `assets/`, `data/`, `README.md` y `.nojekyll`. No publicar la fuente ZIP, herramientas ni documentos de trabajo. Las rutas relativas permiten servir el sitio bajo un subdirectorio de GitHub Pages. Consultar el flujo de despliegue del repositorio para activar una publicación posteriormente; construir o validar localmente no despliega.
+## Publicación y uso
 
-Los datos tienen trazabilidad y señales visibles; los grupos y vecinos automáticos son exploratorios. No se han validado identidades de personas, relevancia temática experta ni disponibilidad remota de los PDF. Véase [Datos y método](docs/DATOS_Y_METODO.md) para transformaciones, límites y reproducibilidad.
+Este repositorio contiene los archivos públicos del sitio estático. Las herramientas de construcción y la fuente ZIP se conservan en la entrega local. No requiere servidor de aplicación ni base de datos. Las selecciones guardadas permanecen en el navegador. La colección es una captura del repositorio, sin actualización automática.
 
-Las instrucciones para un repositorio dedicado y el workflow manual se encuentran
-en [Publicación en GitHub Pages](docs/PUBLICACION_GITHUB_PAGES.md).
-
-## Pruebas
-
-```text
-python tools/test_data.py
-npm ci --ignore-scripts --no-audit --no-fund
-npx playwright install chromium
-npm run test:browser
-```
-
-Node.js y Playwright sólo son herramientas de prueba. La aplicación publicada no
-depende de npm, bibliotecas externas, fuentes remotas ni servicios de terceros.
-La prueba sirve el sitio bajo una subruta, recorre escritorio y móvil y guarda
-capturas y resultados en `test-results/`. El workflow ejecuta estos controles
-antes de publicar.
-
-## Procedencia y normalización
-
-Los metadatos se obtuvieron de [SEDICI](https://sedici.unlp.edu.ar/), Servicio de Difusión de la Creación Intelectual de la UNLP, mediante OAI-PMH, y se completaron con las páginas públicas de cada registro. Se seleccionaron los trabajos de posgrado de la Facultad. La clasificación temática editorial de origen se incorporó conservando áreas principales y secundarias.
-
-Se normalizaron caracteres Unicode, entidades HTML y espacios; se separaron títulos y subtítulos, se ordenaron fechas y se priorizó el año de defensa. Las decisiones sobre denominaciones institucionales, clasificación y registros repetidos se documentaron conservando las fuentes y variantes originales. No se fusionan trabajos solo por coincidir sus títulos.
-
-La comparación de contenido textual utiliza TF-IDF y similitud del coseno sobre títulos, resúmenes y términos de los metadatos. La proyección bidimensional es exploratoria y puede distorsionar distancias. El mapa también permite agrupamientos descriptivos por año de defensa, área temática y tipo de trabajo (doctorado, maestría y especialización). Los colores siguen indicando el área temática.
+Validación previa: 10 pruebas de datos y 19 comprobaciones de interfaz, incluidas navegación, agrupamientos, adaptación móvil y recuperación ante errores.

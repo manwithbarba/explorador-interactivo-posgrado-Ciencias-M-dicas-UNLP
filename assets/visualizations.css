@@ -1,0 +1,227 @@
+.viz {
+  min-width: 0;
+}
+.viz-help,
+.viz-status {
+  color: var(--muted, #536772);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+.viz-controls {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin: 1rem 0;
+}
+.viz-controls button,
+.viz-relations button {
+  font: inherit;
+  cursor: pointer;
+  border: 1px solid #cad9db;
+  background: #fff;
+  color: #185661;
+  border-radius: 0.6rem;
+  padding: 0.55rem 0.9rem;
+}
+.viz-controls button:hover,
+.viz-relations button:hover {
+  background: #eaf3f2;
+}
+.viz-stage {
+  position: relative;
+  border: 1px solid #dce7e7;
+  border-radius: 1.1rem;
+  background: radial-gradient(ellipse at 40% 40%, #fff, #f0f6f5);
+  overflow: hidden;
+}
+.viz-stage svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  max-height: 70vh;
+  min-height: 260px;
+  touch-action: pan-y;
+}
+.viz-dot,
+.viz-node {
+  cursor: pointer;
+}
+.viz-node:focus {
+  outline: none;
+}
+.viz-node:focus circle {
+  stroke: #172e36;
+  stroke-width: 5;
+}
+.viz-map-label,
+.viz-node-label {
+  font:
+    12px system-ui,
+    sans-serif;
+  fill: #193a43;
+  paint-order: stroke;
+  stroke: #fff;
+  stroke-width: 4px;
+  stroke-linejoin: round;
+  pointer-events: none;
+}
+.viz-topic {
+  font:
+    10px system-ui,
+    sans-serif;
+  fill: #70501f;
+}
+.viz-tooltip {
+  pointer-events: none;
+  position: absolute;
+  background: #163b43;
+  color: #fff;
+  padding: 0.7rem 0.9rem;
+  max-width: 250px;
+  border-radius: 0.6rem;
+  font-size: 0.85rem;
+  box-shadow: 0 4px 18px #1233;
+  z-index: 2;
+}
+.viz-legend {
+  display: flex;
+  gap: 0.7rem 1.1rem;
+  flex-wrap: wrap;
+  font-size: 0.8rem;
+  margin: 1rem 0;
+}
+.viz-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.viz-legend span:before {
+  content: "";
+  width: 0.65rem;
+  height: 0.65rem;
+  border-radius: 50%;
+  background: var(--legend-color);
+  flex: none;
+}
+.viz-picker {
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+  flex-wrap: wrap;
+  font-size: 0.9rem;
+}
+.viz-picker select {
+  max-width: 100%;
+  width: min(100%, 500px);
+  font: inherit;
+  padding: 0.6rem;
+  border: 1px solid #bdcfd2;
+  border-radius: 0.5rem;
+  background: #fff;
+  color: #183e47;
+}
+.viz-relations {
+  margin-top: 1.4rem;
+}
+.viz-relation {
+  border-top: 1px solid #dce5e6;
+  padding: 0.8rem 0;
+}
+.viz-relation button {
+  text-align: left;
+  padding: 0.4rem 0;
+  border: none;
+  background: transparent;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.viz-relation p {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--muted, #536772);
+  margin: 0.4rem 0;
+}
+.viz button:focus-visible,
+.viz select:focus-visible {
+  outline: 3px solid #ce7242;
+  outline-offset: 3px;
+}
+@media (max-width: 600px) {
+  .viz-node-label {
+    font-size: 13px;
+  }
+  .viz-controls button {
+    flex: 1;
+  }
+  .viz-help {
+    font-size: 0.83rem;
+  }
+  .viz-stage svg {
+    min-height: 260px;
+  }
+}
+.viz-layout {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  font-size: 0.9rem;
+  margin-right: auto;
+}
+.viz-layout select {
+  font: inherit;
+  border: 1px solid #bdcfd2;
+  border-radius: 0.5rem;
+  background: #fff;
+  color: var(--institutional-green, #12786d);
+  padding: 0.55rem;
+  max-width: 100%;
+}
+.viz-axis {
+  font:
+    11px system-ui,
+    sans-serif;
+  fill: #506661;
+  pointer-events: none;
+}
+.viz-group-box {
+  fill: #ffffff88;
+  stroke: #cddfda;
+  stroke-width: 1;
+  pointer-events: none;
+}
+.viz-grid {
+  stroke: #d7e5df;
+  stroke-width: 1;
+  pointer-events: none;
+}
+.viz-controls button {
+  color: var(--institutional-green, #12786d);
+}
+.viz-layout select:focus-visible {
+  outline: 3px solid var(--institutional-green, #12786d);
+  outline-offset: 3px;
+}
+@media (max-width: 600px) {
+  .viz-layout {
+    width: 100%;
+  }
+  .viz-layout select {
+    flex: 1;
+  }
+}
+.viz-stage svg:is([data-layout="area"], [data-layout="level"]) {
+  max-height: none;
+  min-height: 0;
+}
+.viz-stage svg:is([data-layout="area"], [data-layout="level"]) .viz-axis {
+  font-size: 12px;
+}
+@media (max-width: 600px) {
+  .viz-stage svg:is([data-layout="area"], [data-layout="level"]) .viz-axis {
+    font-size: 21px;
+  }
+  .viz-stage svg:is([data-layout="area"], [data-layout="level"]) .viz-map-label {
+    font-size: 21px;
+  }
+}
